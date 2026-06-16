@@ -1,13 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Phone, MessageCircle } from 'lucide-react';
+import { Phone, MessageCircle, Instagram, Youtube } from 'lucide-react';
 import { WHATSAPP_LINK, BROKER_PHONE, PHONE_HREF } from '@/lib/constants';
 
 const headlineItems = [
-  { text: 'NO VISITING FEE', accent: 'emerald' },
-  { text: 'ONLY BROKERAGE', accent: 'emerald' },
-  { text: 'RENTAL HOUSES AVAILABLE IN KONDAPUR', accent: 'white' },
+  { text: 'ZERO VISITING CHARGES', accent: 'emerald' },
+  { text: 'BROKERAGE APPLICABLE', accent: 'emerald' },
+  { text: 'RENTAL PROPERTIES AVAILABLE IN KONDAPUR', accent: 'white' },
+  { text: 'FURNISHED AND SEMI FURNISHED AVAILABLE', accent: 'white' },
   { text: 'ALL BHKs AVAILABLE', accent: 'gold' },
 ];
 
@@ -93,6 +94,30 @@ export default function Hero() {
           >
             <MessageCircle size={20} />
             WhatsApp Us
+          </a>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+          className="mt-8 flex gap-6"
+        >
+          <a
+            href="https://www.instagram.com/flats_for_rent_sale_hyderabad?utm_source=qr&igsh=MWt2M3JuOTMxaHQyNA=="
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/60 hover:text-[#E1306C] transition-colors"
+          >
+            <Instagram size={32} />
+          </a>
+          <a
+            href="https://youtube.com/@prproperties-je9bc?si=lxZKyF-duS0XlAa1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/60 hover:text-[#FF0000] transition-colors"
+          >
+            <Youtube size={32} />
           </a>
         </motion.div>
       </motion.div>

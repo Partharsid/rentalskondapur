@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import { Building2, Users, MapPin } from 'lucide-react';
 
 const stats = [
-  { icon: Building2, label: 'Properties', value: '10+' },
-  { icon: Users, label: 'Happy Tenants', value: '50+' },
+  { icon: Building2, label: 'Active Properties', value: '50-100' },
+  { icon: Users, label: 'Happy Tenants', value: '200' },
   { icon: MapPin, label: 'Area Covered', value: 'Kondapur' },
 ];
 

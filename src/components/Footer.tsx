@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="relative z-10 border-t border-white/5 bg-deep">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-8">
-        <div className="grid gap-10 md:grid-cols-3">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <h3 className="text-xl font-bold tracking-tight">
               <span className="text-white">RENTALS </span>
@@ -39,6 +39,20 @@ export default function Footer() {
             <div className="flex flex-col gap-3 text-sm text-white/60">
               <p>Kondapur, Hyderabad</p>
               <p>Telangana, India</p>
+              <p className="mt-2 text-white">Call us: +917971442220</p>
+            </div>
+          </div>
+          <div>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/40">
+              Social
+            </h4>
+            <div className="flex flex-col gap-3 text-sm text-white/60">
+              <a href="https://www.instagram.com/flats_for_rent_sale_hyderabad?utm_source=qr&igsh=MWt2M3JuOTMxaHQyNA==" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">
+                Instagram
+              </a>
+              <a href="https://youtube.com/@prproperties-je9bc?si=lxZKyF-duS0XlAa1" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">
+                YouTube
+              </a>
             </div>
           </div>
         </div>
