@@ -36,7 +36,8 @@ export async function POST(req: NextRequest) {
       occupants,
       profession,
       budget,
-      car_parking
+      car_parking,
+      phone_number
     } = data;
 
     // Check for required env variables
@@ -85,6 +86,7 @@ export async function POST(req: NextRequest) {
     try {
       await sheet.setHeaderRow([
         'Date',
+        'Phone Number',
         'Name',
         'Location',
         'BHK',
@@ -106,6 +108,7 @@ export async function POST(req: NextRequest) {
     
     await sheet.addRow({
       'Date': timestamp,
+      'Phone Number': phone_number || 'N/A',
       'Name': name || 'N/A',
       'Location': location || 'N/A',
       'BHK': bhk || 'N/A',
