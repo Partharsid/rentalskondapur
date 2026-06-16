@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --deep: #0B0F19;
+  --obsidian: #111827;
+  --matte: #1F2937;
+  --emerald: #10B981;
+  --gold: #F59E0B;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--matte) transparent;
+}
+
+body {
+  background-color: var(--deep);
+  color: #F3F4F6;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+::selection {
+  background-color: rgba(16, 185, 129, 0.3);
+  color: white;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.15), 0 0 60px rgba(16, 185, 129, 0.05);
+}
+
+.glow-gold {
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.15), 0 0 60px rgba(245, 158, 11, 0.05);
+}
+
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #10B981, #34D399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #F59E0B, #FBBF24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-glow {
+  to { --angle: 360deg; }
+}
+
+.animated-border {
+  --angle: 0deg;
+  border: 1px solid transparent;
+  background: linear-gradient(var(--angle), rgba(16, 185, 129, 0.3), rgba(245, 158, 11, 0.3)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spin-glow 4s linear infinite;
+}
+
+/* Fallback for browsers that don't support @property */
+@supports not (syntax: '<angle>') {
+  .animated-border {
+    border-color: rgba(16, 185, 129, 0.3);
+    animation: none;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.video-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: var(--obsidian);
+}
+
+.video-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.3) 40%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero-glow {
+    width: 300px;
+    height: 300px;
+    filter: blur(80px);
+  }
+}
