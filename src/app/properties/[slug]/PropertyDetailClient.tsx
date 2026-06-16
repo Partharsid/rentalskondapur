@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Home, Phone, MessageCircle, ChevronDown } from 'lucide-react';
 import type { Property } from '@/lib/types';
-import { WHATSAPP_LINK, BROKER_PHONE, PHONE_HREF } from '@/lib/constants';
+import { WHATSAPP_LINK, BROKER_PHONE, PHONE_HREF, WHATSAPP_NUMBER } from '@/lib/constants';
 
 export default function PropertyDetailClient({ property }: { property: Property }) {
   const [form, setForm] = useState({ name: '', phone: '', message: '' });
@@ -31,8 +31,8 @@ export default function PropertyDetailClient({ property }: { property: Property 
     }
   };
 
-  const propertyWhatsAppLink = BROKER_PHONE
-    ? `https://wa.me/${BROKER_PHONE.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+  const propertyWhatsAppLink = WHATSAPP_NUMBER
+    ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     `Hi! I'm interested in "${property.name}" (${property.bhk}, ₹${property.rent?.toLocaleString()}/month) in ${property.location}. Please share more details.`
   )}`
     : '#';

@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Phone, MessageCircle, Home, MapPin } from 'lucide-react';
 import type { Property } from '@/lib/types';
-import { BROKER_PHONE } from '@/lib/constants';
+import { BROKER_PHONE, WHATSAPP_NUMBER } from '@/lib/constants';
 
 export default function PropertyVideoCard({ property }: { property: Property }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -32,7 +32,7 @@ export default function PropertyVideoCard({ property }: { property: Property }) 
     }
   }, [isInView, property.video_url]);
 
-  const propertyWhatsAppLink = `https://wa.me/${(BROKER_PHONE || '').replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+  const propertyWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     `Hi! I'm interested in "${property.name}" (${property.bhk}, ₹${property.rent?.toLocaleString()}/month) in ${property.location}. Please share more details.`
   )}`;
 
