@@ -1,6 +1,10 @@
 node_modules/
 .next/
+.env
 .env.local
+.env.production
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+supabase/.temp/
+*.ps1
