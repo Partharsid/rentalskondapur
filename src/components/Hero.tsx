@@ -49,7 +49,7 @@ export default function Hero() {
             className="overflow-hidden"
           >
             <h1
-              className={`text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight ${
+              className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight ${
                 item.accent === 'emerald'
                   ? 'text-gradient-emerald'
                   : item.accent === 'gold'
