@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, MessageCircle } from 'lucide-react';
-import { WHATSAPP_LINK, BROKER_PHONE, PHONE_HREF } from '@/lib/constants';
+import { WHATSAPP_LINK, PHONE_HREF } from '@/lib/constants';
 
 export default function StickyCTA() {
   const [visible, setVisible] = useState(true);
@@ -27,25 +27,26 @@ export default function StickyCTA() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ y: 100 }}
-          animate={{ y: 0 }}
-          exit={{ y: 100 }}
-          className="fixed bottom-0 left-0 right-0 z-50 flex md:hidden"
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 35 }}
+          className="fixed bottom-4 left-4 right-4 z-50 flex gap-2 md:hidden"
         >
           <a
             href={PHONE_HREF}
-            className="flex flex-1 items-center justify-center gap-2 bg-emerald-600 py-4 text-sm font-semibold text-white active:bg-emerald-500"
+            className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-emerald-600 py-3.5 text-sm font-semibold text-white glow-emerald active:scale-95 transition-transform"
           >
-            <Phone size={18} />
+            <Phone size={16} />
             Call Us
           </a>
           <a
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-1 items-center justify-center gap-2 bg-[#25D366] py-4 text-sm font-semibold text-white active:bg-[#20BD5A]"
+            className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-[#25D366] py-3.5 text-sm font-semibold text-white active:scale-95 transition-transform"
           >
-            <MessageCircle size={18} />
+            <MessageCircle size={16} />
             WhatsApp
           </a>
         </motion.div>

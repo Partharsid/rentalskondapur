@@ -5,9 +5,10 @@ const config = {
   theme: {
     extend: {
       colors: {
-        deep: "#0B0F19",
-        obsidian: "#111827",
-        matte: "#1F2937",
+        deep: "#060810",
+        obsidian: "#0d1117",
+        matte: "#161b22",
+        surface: "#1a2033",
         emerald: {
           DEFAULT: "#10B981",
           glow: "rgba(16, 185, 129, 0.15)",
@@ -18,7 +19,14 @@ const config = {
         },
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Space Grotesk", "Inter", "system-ui", "sans-serif"],
+      },
+      backgroundImage: {
+        "gradient-conic": "conic-gradient(var(--tw-gradient-stops))",
+      },
+      animation: {
+        float: "float 5s ease-in-out infinite",
+        marquee: "marquee 35s linear infinite",
       },
     },
   },
