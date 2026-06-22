@@ -1,6 +1,6 @@
-export const BROKER_PHONE = process.env.NEXT_PUBLIC_BROKER_PHONE || '+917971442220';
+export const BROKER_PHONE = '+917971442220';
 export const WHATSAPP_BASE_NUMBER = '+918328442475';
-export const PHONE_HREF = BROKER_PHONE ? `tel:${BROKER_PHONE}` : '#';
+export const PHONE_HREF = `tel:${BROKER_PHONE}`;
 export const WHATSAPP_NUMBER = WHATSAPP_BASE_NUMBER ? WHATSAPP_BASE_NUMBER.replace(/[^0-9]/g, '') : '';
 export const WHATSAPP_MESSAGE = encodeURIComponent(
   "Hi! I'm interested in rental properties in Kondapur. Please share available options."
