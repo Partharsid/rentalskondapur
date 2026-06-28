@@ -10,7 +10,7 @@ import './globals.css';
 import { UserPreferencesProvider } from '@/context/UserPreferencesContext';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://rentalskondapur.com'),
+  metadataBase: new URL('https://rentalskondapur.com'),
   title: {
     default: `${SITE_NAME} — ${SITE_TAGLINE}`,
     template: `%s | ${SITE_NAME}`,
