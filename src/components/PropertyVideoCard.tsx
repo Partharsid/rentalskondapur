@@ -1,10 +1,11 @@
-'use client';
+﻿'use client';
 
 import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, MessageCircle, Home, MapPin, Maximize2, Layers, ArrowUpRight } from 'lucide-react';
+import { Phone, MessageCircle, Home, MapPin, Maximize2, Layers, ArrowUpRight, Heart, GitCompare } from 'lucide-react';
 import type { Property } from '@/lib/types';
 import { BROKER_PHONE, WHATSAPP_NUMBER } from '@/lib/constants';
+import { useUserPreferences } from '@/context/UserPreferencesContext';
 import Link from 'next/link';
 
 export default function PropertyVideoCard({ property }: { property: Property }) {
@@ -14,6 +15,10 @@ export default function PropertyVideoCard({ property }: { property: Property }) 
   const [videoError, setVideoError] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  
+  const { isFavorite, toggleFavorite, isComparing, addToCompare, removeFromCompare, compareList } = useUserPreferences();
+  const favorite = isFavorite(property.slug);
+  const comparing = isComparing(property.slug);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -38,6 +43,20 @@ export default function PropertyVideoCard({ property }: { property: Property }) 
   const propertyWhatsAppLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     `Hi! I'm interested in "${property.name}" (${property.bhk}, ₹${property.rent?.toLocaleString()}/month) in ${property.location}. Please share more details.`
   )}`;
+
+  const phoneNumber = BROKER_PHONE || '#';
+
+  const handleCompareClick = () => {
+    if (comparing) {
+      removeFromCompare(property.slug);
+    } else {
+      if (compareList.length >= 3) {
+        alert('You can only compare up to 3 properties at a time.');
+        return;
+      }
+      addToCompare(property);
+    }
+  };
 
   return (
     <motion.div
@@ -89,7 +108,7 @@ export default function PropertyVideoCard({ property }: { property: Property }) 
         <div className="video-overlay" />
 
         {/* Top badges */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
+        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-20">
           <span className="rounded-full bg-emerald-500/80 backdrop-blur-md px-2.5 py-0.5 text-[11px] font-bold text-white tracking-wide border border-emerald-400/20">
             {property.bhk}
           </span>
@@ -103,19 +122,42 @@ export default function PropertyVideoCard({ property }: { property: Property }) 
             {property.available_now ? '● Available' : '● Rented'}
           </span>
         </div>
-
-        {/* Top right — view detail */}
-        <div className="absolute top-3 right-3">
+        
+        {/* Quick Actions overlay */}
+        <div className="absolute top-3 right-3 flex flex-col gap-2 z-20 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
+          <button
+            onClick={() => toggleFavorite(property.slug)}
+            className={`flex h-7 w-7 items-center justify-center rounded-lg backdrop-blur-md border transition-all hover:scale-110 ${
+              favorite 
+                ? 'bg-red-500/20 text-red-500 border-red-500/20' 
+                : 'bg-black/40 text-white/60 border-white/10 hover:bg-white/10 hover:text-white'
+            }`}
+            title="Toggle Favorite"
+          >
+            <Heart size={14} fill={favorite ? "currentColor" : "none"} />
+          </button>
+          <button
+            onClick={handleCompareClick}
+            className={`flex h-7 w-7 items-center justify-center rounded-lg backdrop-blur-md border transition-all hover:scale-110 ${
+              comparing 
+                ? 'bg-blue-500/20 text-blue-500 border-blue-500/20' 
+                : 'bg-black/40 text-white/60 border-white/10 hover:bg-white/10 hover:text-white'
+            }`}
+            title="Compare"
+          >
+            <GitCompare size={14} />
+          </button>
           <Link
             href={`/properties/${property.slug}`}
-            className="flex h-7 w-7 items-center justify-center rounded-lg bg-black/40 backdrop-blur-md border border-white/10 text-white/60 opacity-0 group-hover:opacity-100 transition-all hover:bg-white/10 hover:text-white"
+            className="flex h-7 w-7 items-center justify-center rounded-lg bg-black/40 backdrop-blur-md border border-white/10 text-white/60 transition-all hover:scale-110 hover:bg-white/10 hover:text-white"
+            title="View Details"
           >
-            <ArrowUpRight size={13} />
+            <ArrowUpRight size={14} />
           </Link>
         </div>
 
         {/* Bottom price overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-4">
+        <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
           <div className="flex items-end justify-between">
             <div>
               <p className="text-2xl font-black text-white leading-none">
@@ -192,12 +234,6 @@ export default function PropertyVideoCard({ property }: { property: Property }) 
             <MessageCircle size={13} />
             WhatsApp
           </a>
-          <Link
-            href={`/properties/${property.slug}`}
-            className="flex items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 text-xs font-semibold text-white/40 transition-all hover:bg-white/[0.06] hover:text-white/70"
-          >
-            <ArrowUpRight size={14} />
-          </Link>
         </div>
       </div>
     </motion.div>

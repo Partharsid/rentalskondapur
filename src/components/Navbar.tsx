@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Building2, Info } from 'lucide-react';
+import { Menu, X, Home, Building2, Info, Heart } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MARQUEE_TEXTS } from '@/lib/constants';
@@ -10,6 +10,7 @@ import { MARQUEE_TEXTS } from '@/lib/constants';
 const links = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/properties', label: 'Properties', icon: Building2 },
+  { href: '/favorites', label: 'Favorites', icon: Heart },
   { href: '/about', label: 'About', icon: Info },
 ];
 

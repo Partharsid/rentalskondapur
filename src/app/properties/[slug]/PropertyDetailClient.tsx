@@ -2,14 +2,31 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Home, Phone, MessageCircle, ChevronDown } from 'lucide-react';
+import { MapPin, Home, Phone, MessageCircle, ChevronDown, Heart, GitCompare } from 'lucide-react';
 import type { Property } from '@/lib/types';
 import { WHATSAPP_LINK, BROKER_PHONE, PHONE_HREF, WHATSAPP_NUMBER } from '@/lib/constants';
+import { useUserPreferences } from '@/context/UserPreferencesContext';
 
 export default function PropertyDetailClient({ property }: { property: Property }) {
   const [form, setForm] = useState({ name: '', phone: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const { isFavorite, toggleFavorite, isComparing, addToCompare, removeFromCompare, compareList } = useUserPreferences();
+  const favorite = isFavorite(property.slug);
+  const comparing = isComparing(property.slug);
+
+  const handleCompareClick = () => {
+    if (comparing) {
+      removeFromCompare(property.slug);
+    } else {
+      if (compareList.length >= 3) {
+        alert('You can only compare up to 3 properties at a time.');
+        return;
+      }
+      addToCompare(property);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -176,10 +193,28 @@ export default function PropertyDetailClient({ property }: { property: Property 
             transition={{ delay: 0.3 }}
             className="sticky top-24 glass rounded-2xl p-6"
           >
-            <p className="text-3xl font-bold text-white">
-              ₹{property.rent?.toLocaleString()}
-              <span className="text-base font-normal text-white/40"> /month</span>
-            </p>
+            <div className="flex items-start justify-between gap-4">
+              <p className="text-3xl font-bold text-white">
+                ₹{property.rent?.toLocaleString()}
+                <span className="text-base font-normal text-white/40 block sm:inline"> /month</span>
+              </p>
+              <div className="flex gap-2 shrink-0">
+                <button
+                  onClick={() => toggleFavorite(property.slug)}
+                  className={`p-2.5 rounded-xl transition-colors ${favorite ? 'bg-red-500/20 text-red-500' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'}`}
+                  title={favorite ? 'Remove from Favorites' : 'Add to Favorites'}
+                >
+                  <Heart size={20} fill={favorite ? 'currentColor' : 'none'} />
+                </button>
+                <button
+                  onClick={handleCompareClick}
+                  className={`p-2.5 rounded-xl transition-colors ${comparing ? 'bg-blue-500/20 text-blue-500' : 'bg-white/5 text-white/70 hover:bg-white/10 hover:text-white'}`}
+                  title={comparing ? 'Remove from Compare' : 'Add to Compare'}
+                >
+                  <GitCompare size={20} />
+                </button>
+              </div>
+            </div>
 
             <div className="mt-6 flex flex-col gap-3">
               <a
